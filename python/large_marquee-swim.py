@@ -272,7 +272,7 @@ def writeSysMsg(message):
         complete = True
     except:
         complete = False
-        print "Failed to write message to sysMsg.txt: " + str(message)
+        print("Failed to write message to sysMsg.txt: " + str(message))
     
     if complete:
         return True
@@ -313,7 +313,7 @@ def shortenSysMsg():
     except:
         setSysLines()
         message = "Failed to create list from sysMsg.txt"
-        print message
+        print(message)
         writeSysMsg(message)
         return False
     
@@ -324,7 +324,7 @@ def shortenSysMsg():
     except:
         setSysLines()
         message = "Failed to clear sysMsg.txt"
-        print message
+        print(message)
         writeSysMsg(message)
         return False
 
@@ -394,7 +394,7 @@ def censor(text):
                     pair = [[[inIndex],[badWordIndex]]]
                     badIndices_list += pair #mark index as containing bad word
                     #message = "Bad word found: " + badWord
-                    print message
+                    print(message)
                     writeSysMsg(message)
                 badWordIndex += 1
             badFoundCount_list += [badFoundCount]
@@ -404,7 +404,7 @@ def censor(text):
             return text
         else:
             #check more in depth on the bad word(s)
-            print badIndices_list
+            print(badIndices_list)
             confirmBadIndex_list = [] #the indexes of words to be removed are stored in here
             for markedPair in badIndices_list:
                 if len(in_list[markedPair[0][0]]) == len(bad_list[markedPair[1][0]]):#if the words are the same length, its bad
@@ -414,14 +414,14 @@ def censor(text):
                 elif len(bad_list[markedPair[1][0]]) >= 5:
                     confirmBadIndex_list += [markedPair[0][0]]
                     message = "Bad word confirmed (root > 5 long), removed : " + in_list[markedPair[0][0]]
-                print message
+                print(message)
                 writeSysMsg(message)
             index = 0
             for count in badFoundCount_list:
                 if count >= int(cenLev):#if cenLev matches or more, kill it
                     confirmBadIndex_list += [index]
                     message = "Bad word confirmed (matched at least cenLev times, removed : " + in_list[index]
-                    print message
+                    print(message)
                     writeSysMsg(message)
                 index += 1
             #assemble answer, replacing bad words with no characters
@@ -432,7 +432,7 @@ def censor(text):
     except:
         message = "Unable to censor text - badwords-big-opt.txt not found"
         writeSysMsg(message)
-        print message
+        print(message)
         return text
 
 def formatText(text):
@@ -462,7 +462,7 @@ def upd_marquee():
     Goes through text files, checks to see if the option is turned on,
     then displays them on the marquee.
     """
-    print "Running upd_marquee()"
+    print("Running upd_marquee()")
     global timeOn
     global timeSetWeb
     global timeSetManual
@@ -497,7 +497,7 @@ def upd_marquee():
     except:
         message = "Failed to open change.txt"
         writeSysMsg(message)
-        print message
+        print(message)
         change_list = ['0']
 
     #this file has one line, the default theme
@@ -511,7 +511,7 @@ def upd_marquee():
     except:
         message = "Unable to find default theme file (defTheme.txt)"
         writeSysMsg(message)
-        print message
+        print(message)
 
     #this file has one line, the ID
     ID_list = []
@@ -524,7 +524,7 @@ def upd_marquee():
     except:
         message = "Failed to open ID.txt"
         writeSysMsg(message)
-        print message
+        print(message)
         devID = "No ID"
     
     if change_list[0] == "0":
@@ -541,7 +541,7 @@ def upd_marquee():
             message = "Failed to open time.txt"
             time_list = ["false"]
             writeSysMsg(message)
-            print message
+            print(message)
 
         newTimeOn = boolConvert(time_list[0])
         #if there is a change, then worry about changing stuff
@@ -559,13 +559,13 @@ def upd_marquee():
                     valid = False
                     message = "Given time value is missing"
                     writeSysMsg(message)
-                    print message
+                    print(message)
                     
                 
                 #M/D/Y H:M:S
                 #then set time with given info - IF VALID
                 if valid:
-                    print "Setting date manually: " , date_str
+                    print("Setting date manually: " , date_str)
                     try:
                         #os.system('hwclock --set %s' % date_str)
                         #os.system('sudo date -s %s' % date_str)
@@ -577,7 +577,7 @@ def upd_marquee():
                         timeOn = False
                         valid = False
                         writeSysMsg(message)
-                        print message
+                        print(message)
                 #if not valid - check to see if set before (timeSetManual)
                 if valid == False:
                     timeOn = timeSetManual
@@ -592,11 +592,11 @@ def upd_marquee():
                         except:
                             message =  "Failed to change time.txt"
                             writeSysMsg(message)
-                            print message
+                            print(message)
                 else:
                     timeSetManual = True
             else:#internet is used
-                print "Setting date with internet"
+                print("Setting date with internet")
                 today = datetime.date.today()
         else:
             timeOn = newTimeOn
@@ -611,7 +611,7 @@ def upd_marquee():
             message =  "Failed to open theme.txt"
             theme_list = ["false"]
             writeSysMsg(message)
-            print message
+            print(message)
 
         score_list = []
         filePath = "/var/www/score.txt"
@@ -623,7 +623,7 @@ def upd_marquee():
             score_list = ["false"]
             message =  "Failed to open score.txt"
             writeSysMsg(message)
-            print message
+            print(message)
 
         custT1_list = []
         filePath = "/var/www/custT1.txt"
@@ -635,7 +635,7 @@ def upd_marquee():
             message =  "Failed to open custT1.txt"
             custT1_list = ["false"]
             writeSysMsg(message)
-            print message
+            print(message)
             
 
         custT2_list = []
@@ -648,7 +648,7 @@ def upd_marquee():
             message = "Failed to open custT2.txt"
             custT2_list = ["false"]
             writeSysMsg(message)
-            print message
+            print(message)
 
         #the following 3 blocks get the text for the bottom half
         clerkCall_list = []
@@ -661,7 +661,7 @@ def upd_marquee():
             message =  "Failed to open clerkCall.txt"
             clerkCall_list = ["false"]
             writeSysMsg(message)
-            print message
+            print(message)
 
         clerkMsg_list = []
         filePath = "/var/www/clerkMsg.txt"
@@ -673,7 +673,7 @@ def upd_marquee():
             message =  "Failed to open clerkMsg.txt"
             clerkMsg_list = ["false"]
             writeSysMsg(message)
-            print message
+            print(message)
 
         custT3_list = []
         filePath = "/var/www/custT3.txt"
@@ -685,7 +685,7 @@ def upd_marquee():
             message =  "Failed to open custT3.txt"
             custT3_list = ["false"]
             writeSysMsg(message)
-            print message
+            print(message)
 
 
         #the following code assembles the list to display
@@ -987,20 +987,20 @@ def check_network():
     old_netconnect = netconnect
     try:
         urllib2.urlopen("http://google.com", timeout = 2)
-        print "Internet connection found"
+        print("Internet connection found")
         timeSetWeb = True
         netconnect = True
     except:
-        message =  "Failed to connect to google.com"
+        message = "Failed to connect to google.com"
         netconnect = False
         writeSysMsg(message)
-        print message
+        print(message)
         
     filePath = "/var/www/internet.txt"
     if (not(old_netconnect == netconnect)):
         # if there is a change from the past, change the file
         try:
-            print "Writing internet.txt"
+            print("Writing internet.txt")
             internet_file = open(filePath,'w+')
             if netconnect:
                 internet_file.write("true")
@@ -1011,7 +1011,7 @@ def check_network():
         except:
             message =  "Failed to write internet status"
             writeSysMsg(message)
-            print message
+            print(message)
             
     timeSetWeb = False
     #This is to eliminate use of internet to set clock.
@@ -1127,7 +1127,7 @@ def alarm_handler(signo, frame):
                 goOn = False
                 clerkCallOn = False
                 writeSysMsg(message)
-                print message
+                print(message)
             if goOn:
                 clerkCallEdit1 = censor(clerkCall_list[1])
                 #clerkCallEdit2 = censor(clerkCall_list[2])
@@ -1159,7 +1159,7 @@ def alarm_handler(signo, frame):
                 message = "Failed to open sysDo.txt"
                 do_list = ["false"]
                 writeSysMsg(message)
-                print message
+                print(message)
 
             if len(do_list) < 1:
                 do_list = ["false"]
@@ -1173,7 +1173,7 @@ def alarm_handler(signo, frame):
                 except:
                     message = "Failed to write sysDo.txt to false"
                     writeSysMsg(message)
-                    print message
+                    print(message)
                 
                 filePath = "/var/www/sysMsg.txt"
                 try:
@@ -1184,7 +1184,7 @@ def alarm_handler(signo, frame):
                     message = "Failed to clear sysMsg.txt"
                     do_list = ["false"]
                     writeSysMsg(message)
-                    print message
+                    print(message)
             elif do_list[0] == "status":
                 #show various variable values
                 filePath = "/var/www/sysDo.txt"
@@ -1195,7 +1195,7 @@ def alarm_handler(signo, frame):
                 except:
                     message = "Failed to write sysDo.txt to false"
                     writeSysMsg(message)
-                    print message
+                    print(message)
                 
                 varLines = []
                 varLines += ["netconnect = " + str(netconnect)]
@@ -1244,15 +1244,15 @@ def first_run():
     except:
         message = "Failed to set initial change condition by writing to change.txt"
         writeSysMsg(message)
-        print message
+        print(message)
     
     try:
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-            os.chmod(filePath, 0666)#change permissions to useable by all
+            os.chmod(filePath, 0666 )#change permissions to useable by all
     except:
         message = "Unable to change permission of /var/www/change.txt"
         writeSysMsg(message)
-        print message
+        print(message)
 
     path_list = [["/var/www/theme.txt"],["/var/www/score.txt"],["/var/www/custT1.txt"],
                  ["/var/www/custT2.txt"],["/var/www/clerkCall.txt"],["/var/www/clerkMsg.txt"],
@@ -1281,7 +1281,7 @@ def first_run():
             else:
                 file.write("false")
                 message = str(filePath1) + " is empty. writing false."
-                print message
+                prin(message)
                 writeSysMsg(message)
             file.close()
         except:
@@ -1294,11 +1294,11 @@ def first_run():
                     os.chmod(filePath1, 0666)#change permissions to useable
             except:
                 message = "Failed to change permission on " + str(filePath1)
-                print message
+                print(message)
                 writeSysMsg(message)
             message = str(filePath1) + " not found, writing"
             writeSysMsg(message)
-            print message
+            print(message)
             
     #make sure ID.txt exists
     filePath = "/var/www/ID.txt"
@@ -1316,11 +1316,11 @@ def first_run():
                 os.chmod(filePath, 0666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
-            print message
+            print(message)
             writeSysMsg(message)
         message = "ID.txt not found, writing ID.txt to default value"
         writeSysMsg(message)
-        print message
+        print(message)
 
     #Make sure defTheme.txt exists
     filePath = "/var/www/defTheme.txt"  
@@ -1338,11 +1338,11 @@ def first_run():
                 os.chmod(filePath, 0666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
-            print message
+            print(message)
             writeSysMsg(message)
         message = "defTheme.txt not found, writing defTheme.txt to default value"
         writeSysMsg(message)
-        print message
+        print(message)
 
     #Make sure cenLev.txt exists
     filePath = "/var/www/cenLev.txt"  
@@ -1360,11 +1360,11 @@ def first_run():
                 os.chmod(filePath, 0666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
-            print message
+            print(message)
             writeSysMsg(message)
         message = "cenLev.txt not found, writing cenLev.txt"
         writeSysMsg(message)
-        print message
+        print(message)
 
 
     #Make sure ip.txt exists
@@ -1383,11 +1383,11 @@ def first_run():
                 os.chmod(filePath, 0666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
-            print message
+            print(message)
             writeSysMsg(message)
         message = "ip.txt not found, writing ip.txt"
         writeSysMsg(message)
-        print message
+        print(message)
 
     #Make sure status.txt exists, and set the first line to initial boot
     filePath = "/var/www/status.txt"
@@ -1401,7 +1401,7 @@ def first_run():
     except:
         messsage = "Failed to write initial message to status.txt"
         writeSysMsg(message)
-        print message
+        print(message)
 
     #Make sure time.txt exists, and set the first line to false
     filePath = "/var/www/time.txt"
@@ -1415,7 +1415,7 @@ def first_run():
     except:
         message = "Failed to write initial message to time.txt"
         writeSysMsg(message)
-        print message
+        print(message)
 
     #Make sure internet.txt exists, and set the first line to false
     filePath = "/var/www/internet.txt"
@@ -1429,7 +1429,7 @@ def first_run():
     except:
         message = "Failed to write initial message to internet.txt"
         writeSysMsg(message)
-        print message
+        print(message)
 
     #Make sure sysDo.txt exists, and set the first line to false
     filePath = "/var/www/sysDo.txt"
@@ -1442,7 +1442,7 @@ def first_run():
     except:
         message = "Failed to write initial message to sysDo.txt"
         writeSysMsg(message)
-        print message
+        print(message)
     
     #Make sure php files are executable by all
     filePath = "/var/www/ajax_handler.php"
@@ -1452,7 +1452,7 @@ def first_run():
     except:
         message = "failed to change permissions on ajax_handler.php"
         writeSysMsg(message)
-        print message
+        print(message)
 
     filePath = "/var/www/index.php"
     try:
@@ -1461,7 +1461,7 @@ def first_run():
     except:
         message = "failed to change permissions on ajax_handler.php"
         writeSysMsg(message)
-        print message
+        print(message)
 
     check_network() #check network, use to decide whether or not to use user inputed time
 
@@ -1497,11 +1497,11 @@ if __name__ == "__main__":
         new_file.write("This file stores helpful and exception messages for use in troubleshooting")
         new_file.close()
         os.chmod(filePath, 0666)#change permissions to useable
-        print "Writing sysMsg.txt"
+        print("Writing sysMsg.txt")
     writeSysMsg("=======================================================")
     message = 'Marquee started at ' + time.strftime('%a %d-%b-%y %H:%M') + " (system time)"
     writeSysMsg(message)
-    print message
+    print(message)
  
     
     # update the marquee for the first time
