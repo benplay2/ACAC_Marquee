@@ -1248,7 +1248,7 @@ def first_run():
     
     try:
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-            os.chmod(filePath, 0666 )#change permissions to useable by all
+            os.chmod(filePath, 0o666 )#change permissions to useable by all
     except:
         message = "Unable to change permission of /var/www/change.txt"
         writeSysMsg(message)
@@ -1267,7 +1267,7 @@ def first_run():
             file.close
             permission = int(oct(stat.S_IMODE(os.lstat(filePath1).st_mode)))
             if (not (permission == 666)):
-                os.chmod(filePath1, 0666)#change permissions to useable by all
+                os.chmod(filePath1, 0o666)#change permissions to useable by all
             file = open(filePath1, 'w+')
             index = 0
             if len(line_list) > 0:
@@ -1291,7 +1291,7 @@ def first_run():
             permission = int(oct(stat.S_IMODE(os.lstat(filePath1).st_mode)))
             try:
                 if (not (permission == 666)):
-                    os.chmod(filePath1, 0666)#change permissions to useable
+                    os.chmod(filePath1, 0o666)#change permissions to useable
             except:
                 message = "Failed to change permission on " + str(filePath1)
                 print(message)
@@ -1306,14 +1306,14 @@ def first_run():
        file = open(filePath, 'r')
        file.close
        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to useable
+           os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("Generic")
         new_file.close()
         try:
             if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-                os.chmod(filePath, 0666)#change permissions to useable
+                os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
             print(message)
@@ -1328,14 +1328,14 @@ def first_run():
        file = open(filePath, 'r')
        file.close
        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to useable
+           os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("Welcome")
         new_file.close()
         try:
             if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-                os.chmod(filePath, 0666)#change permissions to useable
+                os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
             print(message)
@@ -1350,14 +1350,14 @@ def first_run():
        file = open(filePath, 'r')
        file.close
        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to useable
+           os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("3")
         new_file.close()
         try:
             if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-                os.chmod(filePath, 0666)#change permissions to useable
+                os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
             print(message)
@@ -1373,14 +1373,14 @@ def first_run():
        file = open(filePath, 'r')
        file.close
        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to useable
+           os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("ip_address")
         new_file.close()
         try:
             if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-                os.chmod(filePath, 0666)#change permissions to useable
+                os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
             print(message)
@@ -1396,7 +1396,7 @@ def first_run():
         file.write("Computer System Booted")
         file.close()
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to useable
+           os.chmod(filePath, 0o666)#change permissions to useable
 
     except:
         messsage = "Failed to write initial message to status.txt"
@@ -1410,7 +1410,7 @@ def first_run():
         file.write("false")
         file.close()
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to useable
+           os.chmod(filePath, 0o666)#change permissions to useable
 
     except:
         message = "Failed to write initial message to time.txt"
@@ -1424,7 +1424,7 @@ def first_run():
         file.write("false")
         file.close()
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to useable
+           os.chmod(filePath, 0o666)#change permissions to useable
 
     except:
         message = "Failed to write initial message to internet.txt"
@@ -1438,7 +1438,7 @@ def first_run():
         file.write("false")
         file.close()
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
-           os.chmod(filePath, 0666)#change permissions to executable by all
+           os.chmod(filePath, 0o666)#change permissions to executable by all
     except:
         message = "Failed to write initial message to sysDo.txt"
         writeSysMsg(message)
@@ -1496,7 +1496,7 @@ if __name__ == "__main__":
         new_file = open(filePath,'w+')
         new_file.write("This file stores helpful and exception messages for use in troubleshooting")
         new_file.close()
-        os.chmod(filePath, 0666)#change permissions to useable
+        os.chmod(filePath, 0o666)#change permissions to useable
         print("Writing sysMsg.txt")
     writeSysMsg("=======================================================")
     message = 'Marquee started at ' + time.strftime('%a %d-%b-%y %H:%M') + " (system time)"
