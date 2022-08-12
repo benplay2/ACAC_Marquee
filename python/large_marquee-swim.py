@@ -1448,7 +1448,7 @@ def first_run():
     filePath = "/var/www/ajax_handler.php"
     try:
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 777)):
-           os.chmod(filePath, 0777)#change permissions to executable by all
+           os.chmod(filePath, 0o777)#change permissions to executable by all
     except:
         message = "failed to change permissions on ajax_handler.php"
         writeSysMsg(message)
@@ -1457,7 +1457,7 @@ def first_run():
     filePath = "/var/www/index.php"
     try:
         if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 777)):
-           os.chmod(filePath, 0777)#change permissions to executable by all
+           os.chmod(filePath, 0o777)#change permissions to executable by all
     except:
         message = "failed to change permissions on ajax_handler.php"
         writeSysMsg(message)
