@@ -361,7 +361,7 @@ def censor(text):
     try:
         cenLev_list = []
         filePath = "/var/www/cenLev.txt"
-        file = open(filePath, 'rU')
+        file = open(filePath, 'r')
         cenLev_list = file.readlines()
         file.close()
         cenLev = cenLev_list[0]
@@ -379,20 +379,19 @@ def censor(text):
         
         index = 0
         for word in in_list:
-            in_list[index] = word.translate(None, '!@#$%^&*()-=+~`,./;:') #remove symbols from words entered
+            in_list[index] = word.translate(str.maketrans('','','!@#$%^&*()-=+~`,./;:')) #remove symbols from words entered
             index += 1
 
         bad_list = []
-        filePath = "/home/pi/marquee_py/badwords-big-opt.txt"
-        #filePath = "./badwords-big-opt.txt"
-        file = open(filePath, 'rU')
+        filePath = os.path.join(os.path.dirname(__file__), "badwords-big-opt.txt")
+        file = open(filePath, 'r')
         bad_list = file.readlines()
         file.close()
 
         index = 0
         for badWord in bad_list:
             bad_list[index] = badWord.strip() #remove carriage return of badWord
-            bad_list[index] = bad_list[index].translate(None, '!@#$%^&*()-=+~`,./;:') #remove any characters in the bad_list (shouldn't be any, precaution)
+            bad_list[index] = bad_list[index].translate(str.maketrans('','','!@#$%^&*()-=+~`,./;:')) #remove any characters in the bad_list (shouldn't be any, precaution)
             index += 1
 
         badIndices_list = [] #indicies of the word and its match are stored in here
@@ -408,7 +407,7 @@ def censor(text):
                     badFoundCount += 1
                     pair = [[[inIndex],[badWordIndex]]]
                     badIndices_list += pair #mark index as containing bad word
-                    #message = "Bad word found: " + badWord
+                    message = "Bad word found: " + badWord
                     print(message)
                     writeSysMsg(message)
                 badWordIndex += 1
@@ -443,9 +442,10 @@ def censor(text):
             final_list = text.split()
             for badIndex in confirmBadIndex_list:
                 final_list[badIndex] = '' * (len(final_list[badIndex]))
+            print("Censored input: " + " ".join(final_list))
             return " ".join(final_list)
-    except:
-        message = "Unable to censor text - badwords-big-opt.txt not found"
+    except Exception as e:
+        message = "Unable to censor text:" + str(e)
         writeSysMsg(message)
         print(message)
         return text
@@ -506,7 +506,7 @@ def upd_marquee():
     change_list = []
     filePath = "/var/www/change.txt"
     try:
-        file = open(filePath, 'rU')
+        file = open(filePath, 'r')
         change_list = file.readlines()
         file.close()
     except:
@@ -519,12 +519,12 @@ def upd_marquee():
     defTheme_list = []
     filePath = "/var/www/defTheme.txt"
     try:
-        file = open(filePath, 'rU')
+        file = open(filePath, 'r')
         defTheme_list = file.readlines()
         file.close()
         defThemeEdit = censor(defTheme_list[0])
-    except:
-        message = "Unable to find default theme file (defTheme.txt)"
+    except Exception as e:
+        message = "Unable to find default theme file (defTheme.txt):" + str(e)
         writeSysMsg(message)
         print(message)
 
@@ -532,7 +532,7 @@ def upd_marquee():
     ID_list = []
     filePath = "/var/www/ID.txt"
     try:
-        file = open(filePath, 'rU')
+        file = open(filePath, 'r')
         ID_list = file.readlines()
         file.close()
         devID = censor(ID_list[0])
@@ -549,7 +549,7 @@ def upd_marquee():
         theme_list = []
         filePath = "/var/www/time.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             time_list = file.readlines()
             file.close()
         except:
@@ -619,7 +619,7 @@ def upd_marquee():
         theme_list = []
         filePath = "/var/www/theme.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             theme_list = file.readlines()
             file.close()
         except:
@@ -631,7 +631,7 @@ def upd_marquee():
         score_list = []
         filePath = "/var/www/score.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             score_list = file.readlines()
             file.close()
         except:
@@ -643,7 +643,7 @@ def upd_marquee():
         custT1_list = []
         filePath = "/var/www/custT1.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             custT1_list = file.readlines()
             file.close()
         except:
@@ -656,7 +656,7 @@ def upd_marquee():
         custT2_list = []
         filePath = "/var/www/custT2.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             custT2_list = file.readlines()
             file.close()
         except:
@@ -669,7 +669,7 @@ def upd_marquee():
         clerkCall_list = []
         filePath = "/var/www/clerkCall.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             clerkCall_list = file.readlines()
             file.close()
         except:
@@ -681,7 +681,7 @@ def upd_marquee():
         clerkMsg_list = []
         filePath = "/var/www/clerkMsg.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             clerkMsg_list = file.readlines()
             file.close()
         except:
@@ -693,7 +693,7 @@ def upd_marquee():
         custT3_list = []
         filePath = "/var/www/custT3.txt"
         try:
-            file = open(filePath, 'rU')
+            file = open(filePath, 'r')
             custT3_list = file.readlines()
             file.close()
         except:
@@ -755,8 +755,8 @@ def upd_marquee():
     ser.rtscts = False
     ser.open()
     
-    ser.write(ctrl_s + maddress + ctrl_a + CR) #clear auto-repeat buffer
-    ser.write(ctrl_y + ctrl_r + maddress + '2' + CR) #clear display
+    ser.write(str.encode(ctrl_s + maddress + ctrl_a + CR)) #clear auto-repeat buffer
+    ser.write(str.encode(ctrl_y + ctrl_r + maddress + '2' + CR)) #clear display
 
     time.sleep(1.5)
 
@@ -768,30 +768,30 @@ def upd_marquee():
         if timeOn:
             if topLen >= 1:
             #the following line wipes previous message away
-                ser.write(auto_text_hdr +
+                ser.write(str.encode(auto_text_hdr +
                     tl3 +
                     scroll_up_mode +
                     no_delay +
                     ' ' +
                     maddress +
                     ctrl_a +
-                    CR)
+                    CR))
                 time.sleep(.5)
                 
             #the following line displays the time (stored as var_1, which is td_message)
-            ser.write(auto_text_hdr +
+            ser.write(str.encode(auto_text_hdr +
                 tl3 +
                 line_mode_1 +
                 long_delay +
                 var_1 +
                 maddress +
                 ctrl_a +
-                CR)
+                CR))
             time.sleep(.5)
             #td_message = time.strftime('%a %d-%b-%y %I:%M')
             td_message = time.strftime('%a %b-%d %I:%M')
             
-            ser.write(ctrl_v + '1' + td_message + maddress + ctrl_a + CR) #update time variable (set variable 1 to td_message)
+            ser.write(str.encode(ctrl_v + '1' + td_message + maddress + ctrl_a + CR)) #update time variable (set variable 1 to td_message)
             time.sleep(0.5)
 
         maxItems = max(topLen,bottomLen)
@@ -808,23 +808,23 @@ def upd_marquee():
                 else:
                     displayType = smooth_scroll_mode
                     #the following line wipes previous message away
-                    ser.write(auto_text_hdr +
+                    ser.write(str.encode(auto_text_hdr +
                         tl6 +
                         scroll_down_mode +
                         no_delay +
                         ' ' +
                         maddress +
                         ctrl_a +
-                        CR)
+                        CR))
                     time.sleep(.5)
-                ser.write(auto_text_hdr +
+                ser.write(str.encode(auto_text_hdr +
                     tl6 +
                     displayType +
                     long_delay +
                     message +
                     maddress +
                     ctrl_a +
-                    CR)
+                    CR))
                 time.sleep(0.5)
             elif not(clerkCallDone) and clerkCallOn:
                 #write clerk
@@ -835,16 +835,16 @@ def upd_marquee():
                 clerkCallEnd = " to Clerk"
                 displayType = smooth_scroll_mode
                 #the following line wipes previous message away
-                ser.write(auto_text_hdr +
+                ser.write(str.encode(auto_text_hdr +
                     tl6 +
                     scroll_down_mode +
                     no_delay +
                     ' ' +
                     maddress +
                     ctrl_a +
-                    CR)
+                    CR))
                 time.sleep(.5)
-                ser.write(auto_text_hdr +
+                ser.write(str.encode(auto_text_hdr +
                     tl6 +
                     displayType +
                     long_delay +
@@ -853,9 +853,9 @@ def upd_marquee():
                     clerkCallEnd +
                     maddress +
                     ctrl_a +
-                    CR)
+                    CR))
                 time.sleep(.5)
-                ser.write(ctrl_v + '2' + clerkCallEdit1 + maddress + ctrl_a + CR) #update variable (set variable 2 to clerkCallEdit1)
+                ser.write(str.encode(ctrl_v + '2' + clerkCallEdit1 + maddress + ctrl_a + CR)) #update variable (set variable 2 to clerkCallEdit1)
                 time.sleep(0.5)
                 clerkCallDone = True
                 
@@ -867,23 +867,23 @@ def upd_marquee():
                 else:
                     displayType = smooth_scroll_mode
                     #the following line wipes previous message away
-                    ser.write(auto_text_hdr +
+                    ser.write(str.encode(auto_text_hdr +
                         tl3 +
                         scroll_up_mode +
                         no_delay +
                         ' ' +
                         maddress +
                         ctrl_a +
-                        CR)
+                        CR))
                     time.sleep(.5)
-                ser.write(auto_text_hdr +
+                ser.write(str.encode(auto_text_hdr +
                     tl3 +
                     displayType +
                     long_delay +
                     message +
                     maddress +
                     ctrl_a +
-                    CR)
+                    CR))
                 time.sleep(.5)
                 
             index += 1
@@ -897,16 +897,16 @@ def upd_marquee():
             clerkCallEnd = " to Clerk"
             displayType = smooth_scroll_mode
             #the following line wipes previous message away
-            ser.write(auto_text_hdr +
+            ser.write(str.encode(auto_text_hdr +
                 tl6 +
                 scroll_down_mode +
                 no_delay +
                 ' ' +
                 maddress +
                 ctrl_a +
-                CR)
+                CR))
             time.sleep(.5)
-            ser.write(auto_text_hdr +
+            ser.write(str.encode(auto_text_hdr +
                 tl6 +
                 displayType +
                 long_delay +
@@ -915,26 +915,26 @@ def upd_marquee():
                 clerkCallEnd +
                 maddress +
                 ctrl_a +
-                CR)
+                CR))
             time.sleep(.5)
-            ser.write(ctrl_v + '2' + clerkCallEdit1 + maddress + ctrl_a + CR) #update variable (set variable 2 to clerkCallEdit1)
+            ser.write(str.encode(ctrl_v + '2' + clerkCallEdit1 + maddress + ctrl_a + CR)) #update variable (set variable 2 to clerkCallEdit1)
             time.sleep(0.5)
             clerkCallDone = True
 
     else:#change_list[0] == "0"
         #code to display default theme and web address
         #show default theme on top line
-        ser.write(auto_text_hdr +
+        ser.write(str.encode(auto_text_hdr +
                 tl3 +
                 line_mode_1 +
                 delay +
                 defThemeEdit +
                 maddress +
                 ctrl_a +
-                CR)
+                CR))
         time.sleep(0.5)
         #show web address to connect
-        ser.write(auto_text_hdr +
+        ser.write(str.encode(auto_text_hdr +
                 tl4 +
                 line_mode_1 +
                 delay +
@@ -942,17 +942,17 @@ def upd_marquee():
                 var_4 +
                 maddress +
                 ctrl_a +
-                CR)
+                CR))
 
         #"Website ==> http://" + or "Network"
         time.sleep(0.5)
-        ser.write(ctrl_v + '4' + ip_address + maddress + ctrl_a + CR) #update variable (set variable 4 to ip_address)
+        ser.write(str.encode(ctrl_v + '4' + ip_address + maddress + ctrl_a + CR)) #update variable (set variable 4 to ip_address)
         time.sleep(0.5)
-        ser.write(ctrl_v + '6' + ip_prefix + maddress + ctrl_a + CR) #update variable (set variable 6 to ip_address prefix)
+        ser.write(str.encode(ctrl_v + '6' + ip_prefix + maddress + ctrl_a + CR)) #update variable (set variable 6 to ip_address prefix)
         time.sleep(0.5)
 
         #show web address to connect
-        ser.write(auto_text_hdr +
+        ser.write(str.encode(auto_text_hdr +
                 tl5 +
                 line_mode_1 +
                 delay +
@@ -960,12 +960,12 @@ def upd_marquee():
                 var_5 +
                 maddress +
                 ctrl_a +
-                CR)
+                CR))
         
-        ser.write(ctrl_v + '5' + devID + maddress + ctrl_a + CR) #update variable (set variable 5 to devID)
+        ser.write(str.encode(ctrl_v + '5' + devID + maddress + ctrl_a + CR)) #update variable (set variable 5 to devID)
         time.sleep(0.5)
         
-    ser.write(ctrl_w + '2' + maddress + ctrl_a + CR) #enables auto repeat buffer
+    ser.write(str.encode(ctrl_w + '2' + maddress + ctrl_a + CR)) #enables auto repeat buffer
 
     ser.close()
 
@@ -987,7 +987,7 @@ def upd_tdt():
     td_message = time.strftime('%a %b-%d %I:%M')
     #td_message = time.strftime('%a %d-%b-%y %I:%M')
 
-    ser.write(ctrl_v + '1' + td_message + maddress + ctrl_a + CR) #update time variable
+    ser.write(str.encode(ctrl_v + '1' + td_message + maddress + ctrl_a + CR)) #update time variable
     ser.close()
 
 def check_network():
@@ -1077,7 +1077,7 @@ def alarm_handler(signo, frame):
     #if the first line is zero, show the default theme and web address
     change_list = []
     filePath = "/var/www/change.txt"
-    file = open(filePath, 'rU')
+    file = open(filePath, 'r')
     change_list = file.readlines()
     file.close()
     
@@ -1099,7 +1099,7 @@ def alarm_handler(signo, frame):
         #this file has one line, the ID
         ID_list = []
         filePath = "/var/www/ID.txt"
-        file = open(filePath, 'rU')
+        file = open(filePath, 'r')
         ID_list = file.readlines()
         file.close()
         devID = censor(ID_list[0])
@@ -1114,13 +1114,13 @@ def alarm_handler(signo, frame):
         ser.open()
         time.sleep(.5)
         
-        ser.write(ctrl_v + '6' + ip_prefix + maddress + ctrl_a + CR) #update variable (set variable 6 to ip_prefix)
+        ser.write(str.encode(ctrl_v + '6' + ip_prefix + maddress + ctrl_a + CR)) #update variable (set variable 6 to ip_prefix)
         time.sleep(0.5)
 
-        ser.write(ctrl_v + '4' + ip_address + maddress + ctrl_a + CR) #update variable (set variable 4 to ip_address)
+        ser.write(str.encode(ctrl_v + '4' + ip_address + maddress + ctrl_a + CR)) #update variable (set variable 4 to ip_address)
         time.sleep(0.5)
 
-        ser.write(ctrl_v + '5' + devID + maddress + ctrl_a + CR) #update variable (set variable 5 to devID)
+        ser.write(str.encode(ctrl_v + '5' + devID + maddress + ctrl_a + CR)) #update variable (set variable 5 to devID)
         time.sleep(0.5)
 
         ser.close()
@@ -1131,7 +1131,7 @@ def alarm_handler(signo, frame):
             clerkCall_list = []
             filePath = "/var/www/clerkCall.txt"
             try:
-                file = open(filePath, 'rU')
+                file = open(filePath, 'r')
                 clerkCall_list = file.readlines()
                 file.close()
                 goOn = True
@@ -1155,7 +1155,7 @@ def alarm_handler(signo, frame):
                 ser.open()
                 time.sleep(.5)
                 
-                ser.write(ctrl_v + '2' + clerkCallEdit1 + maddress + ctrl_a + CR) #update variable (set variable 2)
+                ser.write(str.encode(ctrl_v + '2' + clerkCallEdit1 + maddress + ctrl_a + CR)) #update variable (set variable 2)
                 time.sleep(0.5)
                 #ser.write(ctrl_v + '3' + clerkCallEdit2 + maddress + ctrl_a + CR) #update variable (set variable 3)
                 #time.sleep(0.5)
@@ -1165,7 +1165,7 @@ def alarm_handler(signo, frame):
             #check sysDo.txt for changes, do as necessary
             filePath = "/var/www/sysDo.txt"
             try:
-                file = open(filePath, 'rU')
+                file = open(filePath, 'r')
                 do_list = file.readlines()
                 file.close()
             except:
@@ -1260,7 +1260,7 @@ def first_run():
         print(message)
     
     try:
-        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+        if (not (stat.S_IMODE(os.lstat(filePath).st_mode) == 666)):
             os.chmod(filePath, 0o666 )#change permissions to useable by all
     except:
         message = "Unable to change permission of /var/www/change.txt"
@@ -1278,8 +1278,8 @@ def first_run():
             file = open(filePath1, 'r')
             line_list = file.readlines()
             file.close
-            permission = int(oct(stat.S_IMODE(os.lstat(filePath1).st_mode)))
-            if (not (permission == 666)):
+            permission = oct(stat.S_IMODE(os.lstat(filePath1).st_mode))
+            if (not (permission == 0o666)):
                 os.chmod(filePath1, 0o666)#change permissions to useable by all
             file = open(filePath1, 'w+')
             index = 0
@@ -1301,9 +1301,9 @@ def first_run():
             new_file = open(filePath1,'w')
             new_file.write("false")
             new_file.close()
-            permission = int(oct(stat.S_IMODE(os.lstat(filePath1).st_mode)))
+            permission = oct(stat.S_IMODE(os.lstat(filePath1).st_mode))
             try:
-                if (not (permission == 666)):
+                if (not (permission == 0o666)):
                     os.chmod(filePath1, 0o666)#change permissions to useable
             except:
                 message = "Failed to change permission on " + str(filePath1)
@@ -1318,14 +1318,14 @@ def first_run():
     try:
        file = open(filePath, 'r')
        file.close
-       if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+       if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("Generic")
         new_file.close()
         try:
-            if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+            if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
                 os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
@@ -1340,14 +1340,14 @@ def first_run():
     try:
        file = open(filePath, 'r')
        file.close
-       if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+       if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("Welcome")
         new_file.close()
         try:
-            if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+            if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
                 os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
@@ -1362,14 +1362,14 @@ def first_run():
     try:
        file = open(filePath, 'r')
        file.close
-       if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+       if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("3")
         new_file.close()
         try:
-            if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+            if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
                 os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
@@ -1385,14 +1385,14 @@ def first_run():
     try:
        file = open(filePath, 'r')
        file.close
-       if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+       if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to useable
     except:
         new_file = open(filePath,'w+')
         new_file.write("ip_address")
         new_file.close()
         try:
-            if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+            if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
                 os.chmod(filePath, 0o666)#change permissions to useable
         except:
             message = "Failed to change permission on " + str(filePath)
@@ -1408,7 +1408,7 @@ def first_run():
         file = open(filePath, 'w+')
         file.write("Computer System Booted")
         file.close()
-        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+        if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to useable
 
     except:
@@ -1422,7 +1422,7 @@ def first_run():
         file = open(filePath, 'w+')
         file.write("false")
         file.close()
-        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+        if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to useable
 
     except:
@@ -1436,7 +1436,7 @@ def first_run():
         file = open(filePath, 'w+')
         file.write("false")
         file.close()
-        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+        if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to useable
 
     except:
@@ -1450,7 +1450,7 @@ def first_run():
         file = open(filePath, 'w+')
         file.write("false")
         file.close()
-        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 666)):
+        if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o666)):
            os.chmod(filePath, 0o666)#change permissions to executable by all
     except:
         message = "Failed to write initial message to sysDo.txt"
@@ -1460,7 +1460,7 @@ def first_run():
     #Make sure php files are executable by all
     filePath = "/var/www/ajax_handler.php"
     try:
-        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 777)):
+        if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o777)):
            os.chmod(filePath, 0o777)#change permissions to executable by all
     except:
         message = "failed to change permissions on ajax_handler.php"
@@ -1469,10 +1469,19 @@ def first_run():
 
     filePath = "/var/www/index.php"
     try:
-        if (not (int(oct(stat.S_IMODE(os.lstat(filePath).st_mode))) == 777)):
+        if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o777)):
            os.chmod(filePath, 0o777)#change permissions to executable by all
     except:
-        message = "failed to change permissions on ajax_handler.php"
+        message = "failed to change permissions on index.php"
+        writeSysMsg(message)
+        print(message)
+
+    filePath = "/var/www/admin.php"
+    try:
+        if (not (oct(stat.S_IMODE(os.lstat(filePath).st_mode)) == 0o777)):
+           os.chmod(filePath, 0o777)#change permissions to executable by all
+    except:
+        message = "failed to change permissions on admin.php"
         writeSysMsg(message)
         print(message)
 
