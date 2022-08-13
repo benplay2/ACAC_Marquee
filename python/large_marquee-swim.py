@@ -100,7 +100,7 @@ import os
 import serial
 import signal
 import stat
-import urllib2
+import requests
 import subprocess
 import socket
 
@@ -1001,11 +1001,11 @@ def check_network():
     global timeSetWeb
     old_netconnect = netconnect
     try:
-        urllib2.urlopen("http://google.com", timeout = 2)
+        requests.head("http://www.google.com/", timeout=2)
         print("Internet connection found")
         timeSetWeb = True
         netconnect = True
-    except:
+    except requests.ConnectionError:
         message = "Failed to connect to google.com"
         netconnect = False
         writeSysMsg(message)
