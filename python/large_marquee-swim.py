@@ -99,10 +99,10 @@ from xml.dom import minidom
 import os
 import serial
 import signal
-import commands
 import stat
 import urllib2
 import subprocess
+import socket
 
 serverPort = 10001
 
@@ -207,23 +207,38 @@ var_8 = ESC + 'V' + '8'
 var_9 = ESC + 'V' + '9'
 
 #variables following are to help with updating messages
-timeOn = False;
-timeSetWeb = False;
-timeSetManual = False;
-themeOn = True;
-scoreOn = False;
-custT1On = False;
-custT2On = False;
-clerkCallOn = False;
-clerkMsgOn = False;
-custT3On = False;
+timeOn = False
+timeSetWeb = False
+timeSetManual = False
+themeOn = True
+scoreOn = False
+custT1On = False
+custT2On = False
+clerkCallOn = False
+clerkMsgOn = False
+custT3On = False
 
-sysLines = 0;
+sysLines = 0
 
-devID = 0;
+devID = 0
 
-ip_address = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5: ]
-if ("cast" in ip_address.lower()):#If the Pi does not have an IP address
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.settimeout(0)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('10.254.254.254', 1))
+        IP = s.getsockname()[0]
+    except Exception:
+        IP = 'Not Connected'
+    finally:
+        s.close()
+    return IP
+
+
+
+ip_address = get_ip()
+if (ip_address == "Not Connected"):#If the Pi does not have an IP address
     ip_prefix = "Network "
     ip_address = "Not Connected"
 else:
@@ -1069,14 +1084,12 @@ def alarm_handler(signo, frame):
     if change_list[0]== "0" and alarmTick > 1:#must update ip_address variable, ip_prefix, and devID
         alarmTick = 0
         
-        ip_address = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5: ]
-
-        if ("cast" in ip_address.lower()):
+        ip_address = get_ip()
+        if (ip_address == "Not Connected"):#If the Pi does not have an IP address
             ip_prefix = "Network "
             ip_address = "Not Connected"
         else:
             ip_prefix = "Website ==> http://"
-            ip_address = ip_address
 
         filePath = '/var/www/ip.txt'
         ip_file = open(filePath,'w+')
