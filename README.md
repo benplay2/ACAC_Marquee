@@ -15,9 +15,20 @@ In order to communicate with a marquee sign, the Raspberry Pi uses a USB->serial
 
 To make the system seamless, the python script needs to be started automatically when the device starts up.
 
+## Setup steps for the signs as provided:
+- Plug the signs into power
+- Power on a nearby router
+- Connect the sign ethernet cords to the router
+- Connect a computer to the router's network
+- Browse to the website displayed on the sign
+
+
+---
 ![Daytime Image](Media/2013-June%20IMG_4157_edited-1.jpg)
 
 ![Nighttime Image](Media/2013-June%20IMG_4161_edited-1.jpg)
+
+![Website Screenshot](Media/Marquee_Website_Screenshot.png)
 
 ## To Make It Work
 For more details, see [large_marquee-swim.py](python/large_marquee-swim.py)
@@ -25,13 +36,17 @@ For more details, see [large_marquee-swim.py](python/large_marquee-swim.py)
 The web page functionality can be enabled by installing apache2.
 This is done by running "sudo apt-get update" followed by "sudo apt-get install apache2" in the terminal.
 
-The /var/www folder must be accessable by the user running this code.
-One way to do it is to set the folder permissions to 777 with chmod.
-   Another way would be to create and set the permissions of the text, php, and html files manually.
-
 A USB -> serial port is required for operation. While our tests have always used the top USB port of the Pi, it may not matter which port.
 This serial port must be connected to the marquee's RS232 recieve and ground ports.
 The USB-> serial converter used in the past has had a DB9 connector, which sends from pin 3, and ground is pin 5.
+
+1. Copy all files from the `web` folder to `/var/www/`
+   - `sudo cp ./web/*.* /var/www/`
+2. Configure apache2 to use `/var/www/` as root directory and enable php.
+2. Run python script
+   - `sudo python large_marquee-swim.py`
+
+For more details, see [large_marquee-swim.py](python/large_marquee-swim.py)
 
 Recommendations:
 - Turn off ssh for security reasons
