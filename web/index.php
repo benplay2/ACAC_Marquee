@@ -1022,6 +1022,9 @@
 	</table>
     
     	<br></div>
+		
+	<p>See <a href="admin.php">admin</a> page to change sign settings.</p>
+		
 	<p>Many thanks to those who contributed to making this project a success:</p>
 	<ul>
 		<li>GE Intelligent Platforms for donating the marquee displays</li>
