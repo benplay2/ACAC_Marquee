@@ -159,11 +159,15 @@
 		<li>Greg Faust</li>
 	</ul>
 	Marquee website created by Benjamin Brust.
-	<br>Version 2.35 7/24/2013 <br>
+	<br>Version 3.0 August 2022<br>
 	Please send any comments or suggestions to
 	<a href="mailto:brustb@gmail.com?subject=Swim Team Marquee Displays">Ben 
-	Brust</a>.<br>
-	Copyright &copy 2013 Benjamin Brust.
+	Brust</a>.
+	<br>Project is managed on GitHub: 
+		<a href="https://github.com/benplay2/ACAC_Marquee">ACAC_Marquee</a>
+		<br>
+	
+	Copyright &copy 2022 Benjamin Brust.
 
 </body>
 </html>

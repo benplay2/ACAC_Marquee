@@ -1,8 +1,7 @@
 <?php
-//Copyright 2013 Benjamin Brust
-//version 2.35 7/24/2013
+//Copyright 2022 Benjamin Brust
 
-//    Copyright 2013 Benjamin Brust.
+//    Copyright 2022 Benjamin Brust.
 //    #Files required:
 //    #ALL TEXT FILES WILL BE AUTOMATICALLY GENERATED
 //    #
@@ -42,7 +41,6 @@
 //		<li>Greg Faust</li>
 //	
 //	Marquee website created by Benjamin Brust.
-//        Version 2.35 7/24/2013
 //	Please send any comments or suggestions to Ben Brust (brustb@gmail.com)
 //	Copyright &copy 2013 Benjamin Brust.
         

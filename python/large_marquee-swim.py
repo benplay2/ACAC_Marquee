@@ -15,10 +15,8 @@
 # large_marquee-swim.py
 # Permission granted to distribute at will from Greg Faust
 # Copyright: Benjamin Brust
-# 2013
+# 2022
 #
-# 7/24/2013
-# Version 2.35
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
