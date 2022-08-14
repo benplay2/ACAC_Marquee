@@ -1,20 +1,6 @@
 # ACAC Marquee
 Project to display swim meet and other facility information on LED Marquee signs donated by General Electric. 
 
-![Sign Initial Setup Image](Media/Sign_setup_image.jpg)
-
-This code is run from a Raspberry Pi inside the sign which is connected by ethernet to a local network. A computer on the local network can open the webage of the sign (IP address) to set text to display from the sign.
-
-At startup, the Raspberry Pi will command the display to show the IP address.
-
-This code consists of two main portions, python and web.
-- The Python script was written with Python 2.7, so may need some updating to support 3+.
-- The website consists mainly of php and JavaScript. The JavaScript code was not developed as part of this project, instead it was used in its entirety from a different source.
-
-In order to communicate with a marquee sign, the Raspberry Pi uses a USB->serial adapter (even though a GPIO pin on the Raspberry Pi could have been used directly).
-
-To make the system seamless, the python script needs to be started automatically when the device starts up.
-
 ## Setup steps for the signs as provided:
 - Plug the signs into power
 - Power on a nearby router
@@ -22,6 +8,20 @@ To make the system seamless, the python script needs to be started automatically
 - Connect a computer to the router's network
 - Browse to the website displayed on the sign
 
+---
+![Sign Initial Setup Image](Media/Sign_setup_image.jpg)
+
+This code is run from a Raspberry Pi inside the sign which is connected by ethernet to a local network. A computer on the local network can open the webage of the sign (IP address) to set text to display from the sign.
+
+At startup, the Raspberry Pi will command the display to show the IP address.
+
+This code consists of two main portions, python and web.
+- The Python script was originally written with Python 2.7 but has been updated to run with 3.9. _This has not yet been tested with the signs_
+- The website consists mainly of php and JavaScript. The JavaScript code was not developed as part of this project, instead it was used in its entirety from a different source.
+
+In order to communicate with a marquee sign, the Raspberry Pi uses a USB->serial adapter (even though a GPIO pin on the Raspberry Pi could have been used directly).
+
+To make the system seamless, the python script needs to be started automatically when the device starts up.
 
 ---
 ![Daytime Image](Media/2013-June%20IMG_4157_edited-1.jpg)
